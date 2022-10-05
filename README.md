@@ -4,9 +4,7 @@
 
  <div id="badges">
 
-  <img src= "https://media.giphy.com/media/SS8CV2rQdlYNLtBCiF/giphy.gif" width="40"/>
   <img src= "https://media.giphy.com/media/KAq5w47R9rmTuvWOWa/giphy.gif" width="40"/>
-  <img src="https://github.com/devicons/devicon/blob/master/icons/html5/html5-original.svg" title="HTML5" alt="HTML" width="40" height="40"/>&nbsp;
   <img src="https://github.com/devicons/devicon/blob/master/icons/nodejs/nodejs-original-wordmark.svg" title="NodeJS" alt="NodeJS" width="40" height="40"/>&nbsp;
   Git <img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/git/git.png" width="50" height="50" />&nbsp; &nbsp; &nbsp; &nbsp;
 HTML <img src="https://w7.pngwing.com/pngs/201/90/png-transparent-logo-html-html5.png" width="50" height="50" />&nbsp; &nbsp; &nbsp; &nbsp;
