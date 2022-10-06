@@ -1,0 +1,172 @@
+<html>
+<head>
+<title>CalifMarkHtml.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #0033b3;}
+.s1 { color: #080808;}
+.s2 { color: #8c8c8c; font-style: italic;}
+.s3 { color: #067d17;}
+.s4 { color: #1750eb;}
+.s5 { color: #0037a6;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+CalifMarkHtml.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">unittest</span>
+<span class="s0">import </span><span class="s1">time</span>
+<span class="s0">from </span><span class="s1">selenium </span><span class="s0">import </span><span class="s1">webdriver</span>
+<span class="s0">from </span><span class="s1">selenium.webdriver </span><span class="s0">import </span><span class="s1">Keys</span>
+<span class="s0">from </span><span class="s1">selenium.webdriver.support.wait </span><span class="s0">import </span><span class="s1">WebDriverWait</span>
+<span class="s0">from </span><span class="s1">selenium.webdriver.support </span><span class="s0">import </span><span class="s1">expected_conditions </span><span class="s0">as </span><span class="s1">EC</span>
+<span class="s0">from </span><span class="s1">selenium.webdriver.common.by </span><span class="s0">import </span><span class="s1">By</span>
+
+
+<span class="s2"># driver = webdriver.Chrome()</span>
+<span class="s2"># driver.get(&quot;https://qasvus.wordpress.com/&quot;)</span>
+<span class="s2"># driver.maximize_window()</span>
+
+
+<span class="s0">class </span><span class="s1">ChromeSearch(unittest.TestCase):</span>
+
+    <span class="s0">def </span><span class="s1">setUp(self):</span>
+        <span class="s1">self.driver = webdriver.Chrome()</span>
+        <span class="s1">self.driver.maximize_window()</span>
+
+    <span class="s2"># As per unittest module, individual test should start with test_</span>
+    <span class="s0">def </span><span class="s1">test_search_house_chrome(self):</span>
+        <span class="s1">driver = self.driver</span>
+        <span class="s1">driver.get(</span><span class="s3">'https://qasvus.wordpress.com/'</span><span class="s1">)</span>
+        <span class="s1">wait = WebDriverWait(driver, </span><span class="s4">3</span><span class="s1">)</span>
+        <span class="s1">wait.until(EC.visibility_of_element_located((By.XPATH, </span><span class="s3">&quot;//*[@id='site-navigation']&quot;</span><span class="s1">)))</span>
+        <span class="s1">time.sleep(</span><span class="s4">1</span><span class="s1">)</span>
+
+        <span class="s1">print(driver.find_element(By.XPATH, </span><span class="s3">&quot;//*[@rel = 'home']&quot;</span><span class="s1">).get_attribute(</span><span class="s3">'href'</span><span class="s1">))</span>
+        <span class="s1">print(driver.find_element(By.XPATH, </span><span class="s3">'//*[@class = &quot;wp-image-55 size-full&quot;]'</span><span class="s1">).get_attribute(</span><span class="s3">'src'</span><span class="s1">))</span>
+
+        <span class="s0">assert </span><span class="s3">&quot;California Real Estate&quot; </span><span class="s0">in </span><span class="s1">driver.title</span>
+        <span class="s1">print(driver.title)</span>
+        <span class="s1">time.sleep(</span><span class="s4">2</span><span class="s1">)</span>
+        <span class="s1">driver.find_element(By.XPATH, </span><span class="s3">&quot;//*[text()= 'Send Us a Message']&quot;</span><span class="s1">)</span>
+        <span class="s1">driver.find_element(By.ID, </span><span class="s3">&quot;g2-name&quot;</span><span class="s1">).send_keys(</span><span class="s3">&quot;Anna&quot;</span><span class="s1">)</span>
+        <span class="s1">driver.find_element(By.NAME, </span><span class="s3">&quot;g2-email&quot;</span><span class="s1">).send_keys(</span><span class="s3">&quot;home@gmail.com&quot;</span><span class="s1">)</span>
+        <span class="s1">driver.find_element(By.NAME, </span><span class="s3">&quot;g2-message&quot;</span><span class="s1">).send_keys(</span><span class="s3">&quot;Hello new home&quot;</span><span class="s1">)</span>
+        <span class="s1">driver.implicitly_wait(</span><span class="s4">4</span><span class="s1">)</span>
+        <span class="s1">driver.find_element(By.TAG_NAME, </span><span class="s3">'html'</span><span class="s1">).send_keys(Keys.PAGE_DOWN)</span>
+        <span class="s1">driver.find_element(By.TAG_NAME, </span><span class="s3">'html'</span><span class="s1">).send_keys(Keys.PAGE_DOWN)</span>
+        <span class="s2"># driver.find_element(By.CLASS_NAME, 'pushbutton-wide').click()</span>
+        <span class="s1">driver.find_element(By.CLASS_NAME, </span><span class="s3">'pushbutton-wide'</span><span class="s1">).send_keys(</span><span class="s3">'</span><span class="s5">\n</span><span class="s3">'</span><span class="s1">)</span>
+        <span class="s1">time.sleep(</span><span class="s4">2</span><span class="s1">)</span>
+
+        <span class="s1">driver.find_element(By.XPATH, </span><span class="s3">&quot;//*[contains(text(),'go back')]&quot;</span><span class="s1">).send_keys(</span><span class="s3">'</span><span class="s5">\n</span><span class="s3">'</span><span class="s1">)</span>
+        <span class="s1">print(driver.find_element(By.XPATH, </span><span class="s3">&quot;//*[@class = 'pushbutton-wide']&quot;</span><span class="s1">).get_attribute(</span><span class="s3">'type'</span><span class="s1">))</span>
+
+    <span class="s0">def </span><span class="s1">test_search_house_chrome_1120x550(self):</span>
+        <span class="s1">driver = self.driver</span>
+        <span class="s1">driver.set_window_size(</span><span class="s4">1120</span><span class="s1">, </span><span class="s4">550</span><span class="s1">)</span>
+        <span class="s1">driver.get(</span><span class="s3">'https://qasvus.wordpress.com/'</span><span class="s1">)</span>
+        <span class="s1">wait = WebDriverWait(driver, </span><span class="s4">5</span><span class="s1">)</span>
+        <span class="s1">wait.until(EC.visibility_of_element_located((By.XPATH, </span><span class="s3">&quot;//*[@id='site-navigation']&quot;</span><span class="s1">)))</span>
+        <span class="s1">time.sleep(</span><span class="s4">1</span><span class="s1">)</span>
+
+        <span class="s1">print(driver.find_element(By.XPATH, </span><span class="s3">&quot;//*[@rel = 'home']&quot;</span><span class="s1">).get_attribute(</span><span class="s3">'href'</span><span class="s1">))</span>
+        <span class="s1">print(driver.find_element(By.XPATH, </span><span class="s3">'//*[@class = &quot;wp-image-55 size-full&quot;]'</span><span class="s1">).get_attribute(</span><span class="s3">'src'</span><span class="s1">))</span>
+
+        <span class="s0">assert </span><span class="s3">&quot;California Real Estate&quot; </span><span class="s0">in </span><span class="s1">driver.title</span>
+        <span class="s1">print(driver.title)</span>
+        <span class="s1">time.sleep(</span><span class="s4">2</span><span class="s1">)</span>
+        <span class="s1">driver.find_element(By.XPATH, </span><span class="s3">&quot;//*[text()= 'Send Us a Message']&quot;</span><span class="s1">)</span>
+        <span class="s1">driver.find_element(By.ID, </span><span class="s3">&quot;g2-name&quot;</span><span class="s1">).send_keys(</span><span class="s3">&quot;Anna&quot;</span><span class="s1">)</span>
+        <span class="s1">driver.find_element(By.NAME, </span><span class="s3">&quot;g2-email&quot;</span><span class="s1">).send_keys(</span><span class="s3">&quot;home@gmail.com&quot;</span><span class="s1">)</span>
+        <span class="s1">driver.find_element(By.NAME, </span><span class="s3">&quot;g2-message&quot;</span><span class="s1">).send_keys(</span><span class="s3">&quot;Hello new home&quot;</span><span class="s1">)</span>
+        <span class="s1">driver.implicitly_wait(</span><span class="s4">4</span><span class="s1">)</span>
+        <span class="s1">driver.find_element(By.TAG_NAME, </span><span class="s3">'html'</span><span class="s1">).send_keys(Keys.PAGE_DOWN)</span>
+        <span class="s1">driver.find_element(By.TAG_NAME, </span><span class="s3">'html'</span><span class="s1">).send_keys(Keys.PAGE_DOWN)</span>
+        <span class="s2"># driver.find_element(By.CLASS_NAME, 'pushbutton-wide').click()</span>
+        <span class="s1">driver.find_element(By.CLASS_NAME, </span><span class="s3">'pushbutton-wide'</span><span class="s1">).send_keys(</span><span class="s3">'</span><span class="s5">\n</span><span class="s3">'</span><span class="s1">)</span>
+        <span class="s1">time.sleep(</span><span class="s4">2</span><span class="s1">)</span>
+
+        <span class="s1">driver.find_element(By.XPATH, </span><span class="s3">&quot;//*[contains(text(),'go back')]&quot;</span><span class="s1">).send_keys(</span><span class="s3">'</span><span class="s5">\n</span><span class="s3">'</span><span class="s1">)</span>
+        <span class="s1">print(driver.find_element(By.XPATH, </span><span class="s3">&quot;//*[@class = 'pushbutton-wide']&quot;</span><span class="s1">).get_attribute(</span><span class="s3">'type'</span><span class="s1">))</span>
+
+    <span class="s0">def </span><span class="s1">tearDown(self):</span>
+        <span class="s1">self.driver.quit()</span>
+
+
+<span class="s0">class </span><span class="s1">FirefoxSearch(unittest.TestCase):</span>
+
+    <span class="s0">def </span><span class="s1">setUp(self):</span>
+        <span class="s1">self.driver = webdriver.Firefox()</span>
+        <span class="s1">self.driver.maximize_window()</span>
+
+    <span class="s2"># As per unittest module, individual test should start with test_</span>
+    <span class="s0">def </span><span class="s1">search_home_firefox(self):</span>
+        <span class="s1">driver = self.driver</span>
+        <span class="s1">driver.get(</span><span class="s3">'https://qasvus.wordpress.com/'</span><span class="s1">)</span>
+        <span class="s1">wait = WebDriverWait(driver, </span><span class="s4">5</span><span class="s1">)</span>
+        <span class="s1">wait.until(EC.visibility_of_element_located((By.XPATH, </span><span class="s3">&quot;//*[@id='site-navigation']&quot;</span><span class="s1">)))</span>
+        <span class="s1">time.sleep(</span><span class="s4">1</span><span class="s1">)</span>
+
+        <span class="s1">print(driver.find_element(By.XPATH, </span><span class="s3">&quot;//*[@rel = 'home']&quot;</span><span class="s1">).get_attribute(</span><span class="s3">'href'</span><span class="s1">))</span>
+        <span class="s1">print(driver.find_element(By.XPATH, </span><span class="s3">'//*[@class = &quot;wp-image-55 size-full&quot;]'</span><span class="s1">).get_attribute(</span><span class="s3">'src'</span><span class="s1">))</span>
+
+        <span class="s0">assert </span><span class="s3">&quot;California Real Estate&quot; </span><span class="s0">in </span><span class="s1">driver.title</span>
+        <span class="s1">print(driver.title)</span>
+        <span class="s1">time.sleep(</span><span class="s4">2</span><span class="s1">)</span>
+        <span class="s1">driver.find_element(By.XPATH, </span><span class="s3">&quot;//*[text()= 'Send Us a Message']&quot;</span><span class="s1">)</span>
+        <span class="s1">driver.find_element(By.ID, </span><span class="s3">&quot;g2-name&quot;</span><span class="s1">).send_keys(</span><span class="s3">&quot;Anna&quot;</span><span class="s1">)</span>
+        <span class="s1">driver.find_element(By.NAME, </span><span class="s3">&quot;g2-email&quot;</span><span class="s1">).send_keys(</span><span class="s3">&quot;home@gmail.com&quot;</span><span class="s1">)</span>
+        <span class="s1">driver.find_element(By.NAME, </span><span class="s3">&quot;g2-message&quot;</span><span class="s1">).send_keys(</span><span class="s3">&quot;Hello new home&quot;</span><span class="s1">)</span>
+        <span class="s1">driver.implicitly_wait(</span><span class="s4">4</span><span class="s1">)</span>
+        <span class="s1">driver.find_element(By.TAG_NAME, </span><span class="s3">'html'</span><span class="s1">).send_keys(Keys.PAGE_DOWN)</span>
+        <span class="s1">driver.find_element(By.TAG_NAME, </span><span class="s3">'html'</span><span class="s1">).send_keys(Keys.PAGE_DOWN)</span>
+        <span class="s2"># driver.find_element(By.CLASS_NAME, 'pushbutton-wide').click()</span>
+        <span class="s1">driver.find_element(By.CLASS_NAME, </span><span class="s3">'pushbutton-wide'</span><span class="s1">).send_keys(</span><span class="s3">'</span><span class="s5">\n</span><span class="s3">'</span><span class="s1">)</span>
+        <span class="s1">time.sleep(</span><span class="s4">2</span><span class="s1">)</span>
+
+        <span class="s1">driver.find_element(By.XPATH, </span><span class="s3">&quot;//*[contains(text(),'go back')]&quot;</span><span class="s1">).send_keys(</span><span class="s3">'</span><span class="s5">\n</span><span class="s3">'</span><span class="s1">)</span>
+        <span class="s1">print(driver.find_element(By.XPATH, </span><span class="s3">&quot;//*[@class = 'pushbutton-wide']&quot;</span><span class="s1">).get_attribute(</span><span class="s3">'type'</span><span class="s1">))</span>
+
+    <span class="s0">def </span><span class="s1">search_home_firefox_1150x850(self):</span>
+        <span class="s1">driver = self.driver</span>
+        <span class="s1">driver.set_window_size(</span><span class="s4">1150</span><span class="s1">, </span><span class="s4">850</span><span class="s1">)</span>
+        <span class="s1">driver.get(</span><span class="s3">'https://qasvus.wordpress.com/'</span><span class="s1">)</span>
+        <span class="s1">wait = WebDriverWait(driver, </span><span class="s4">5</span><span class="s1">)</span>
+        <span class="s1">wait.until(EC.visibility_of_element_located((By.XPATH, </span><span class="s3">&quot;//*[@id='site-navigation']&quot;</span><span class="s1">)))</span>
+        <span class="s1">time.sleep(</span><span class="s4">1</span><span class="s1">)</span>
+
+        <span class="s1">print(driver.find_element(By.XPATH, </span><span class="s3">&quot;//*[@rel = 'home']&quot;</span><span class="s1">).get_attribute(</span><span class="s3">'href'</span><span class="s1">))</span>
+        <span class="s1">print(driver.find_element(By.XPATH, </span><span class="s3">'//*[@class = &quot;wp-image-55 size-full&quot;]'</span><span class="s1">).get_attribute(</span><span class="s3">'src'</span><span class="s1">))</span>
+
+        <span class="s0">assert </span><span class="s3">&quot;California Real Estate&quot; </span><span class="s0">in </span><span class="s1">driver.title</span>
+        <span class="s1">print(driver.title)</span>
+        <span class="s1">time.sleep(</span><span class="s4">2</span><span class="s1">)</span>
+        <span class="s1">driver.find_element(By.XPATH, </span><span class="s3">&quot;//*[text()= 'Send Us a Message']&quot;</span><span class="s1">)</span>
+        <span class="s1">driver.find_element(By.ID, </span><span class="s3">&quot;g2-name&quot;</span><span class="s1">).send_keys(</span><span class="s3">&quot;Anna&quot;</span><span class="s1">)</span>
+        <span class="s1">driver.find_element(By.NAME, </span><span class="s3">&quot;g2-email&quot;</span><span class="s1">).send_keys(</span><span class="s3">&quot;home@gmail.com&quot;</span><span class="s1">)</span>
+        <span class="s1">driver.find_element(By.NAME, </span><span class="s3">&quot;g2-message&quot;</span><span class="s1">).send_keys(</span><span class="s3">&quot;Hello new home&quot;</span><span class="s1">)</span>
+        <span class="s1">driver.implicitly_wait(</span><span class="s4">4</span><span class="s1">)</span>
+        <span class="s1">driver.find_element(By.TAG_NAME, </span><span class="s3">'html'</span><span class="s1">).send_keys(Keys.PAGE_DOWN)</span>
+        <span class="s1">driver.find_element(By.TAG_NAME, </span><span class="s3">'html'</span><span class="s1">).send_keys(Keys.PAGE_DOWN)</span>
+        <span class="s2"># driver.find_element(By.CLASS_NAME, 'pushbutton-wide').click()</span>
+        <span class="s1">driver.find_element(By.CLASS_NAME, </span><span class="s3">'pushbutton-wide'</span><span class="s1">).send_keys(</span><span class="s3">'</span><span class="s5">\n</span><span class="s3">'</span><span class="s1">)</span>
+        <span class="s1">time.sleep(</span><span class="s4">2</span><span class="s1">)</span>
+
+        <span class="s1">driver.find_element(By.XPATH, </span><span class="s3">&quot;//*[contains(text(),'go back')]&quot;</span><span class="s1">).send_keys(</span><span class="s3">'</span><span class="s5">\n</span><span class="s3">'</span><span class="s1">)</span>
+        <span class="s1">print(driver.find_element(By.XPATH, </span><span class="s3">&quot;//*[@class = 'pushbutton-wide']&quot;</span><span class="s1">).get_attribute(</span><span class="s3">'type'</span><span class="s1">))</span>
+
+    <span class="s0">def </span><span class="s1">tearDown(self):</span>
+        <span class="s1">self.driver.quit()</span>
+
+
+<span class="s2"># driver.quit()</span>
+
+<span class="s0">if </span><span class="s1">__name__ == </span><span class="s3">&quot;__main__&quot;</span><span class="s1">:</span>
+    <span class="s1">unittest.main()</span>
+</pre>
+</body>
+</html>
