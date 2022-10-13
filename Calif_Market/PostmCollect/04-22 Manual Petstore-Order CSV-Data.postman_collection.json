@@ -1,0 +1,202 @@
+{
+	"info": {
+		"_postman_id": "a67b6500-9204-435a-9876-66b7a48cb1dd",
+		"name": "04-22 Manual Petstore-Order CSV-Data",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1108809"
+	},
+	"item": [
+		{
+			"name": "Place an order for a pet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Current ID is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.id).to.eql(pm.iterationData.get(\"ID\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Current Pet-ID is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.petId).to.eql(pm.iterationData.get(\"PETID\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Current Quantity is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.quantity).to.eql(pm.iterationData.get(\"QT\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Current Status is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.status).to.eql(pm.iterationData.get(\"STS\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Current Status is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.complete).to.eql(Boolean(pm.iterationData.get(\"COM\")));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": {{ID}},\r\n    \"petId\": {{PETID}},\r\n    \"quantity\": {{QT}},\r\n    \"shipDate\": \"2022-06-21T01:14:09.524Z\",\r\n    \"status\": \"{{STS}}\",\r\n    \"complete\": {{COM}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{ID}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find purchase order by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Current ID is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.id).to.eql(pm.iterationData.get(\"ID\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Current Pet-ID is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.petId).to.eql(pm.iterationData.get(\"PETID\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Current Quantity is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.quantity).to.eql(pm.iterationData.get(\"QT\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Current Status is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.status).to.eql(pm.iterationData.get(\"STS\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Current Status is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.complete).to.eql(Boolean(pm.iterationData.get(\"COM\")));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order/{{ID}}",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order",
+						"{{ID}}"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{ID}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete purchase order by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Current ID is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"\" + pm.iterationData.get(\"ID\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order/{{ID}}",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order",
+						"{{ID}}"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{ID}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

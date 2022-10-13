@@ -1,0 +1,399 @@
+{
+	"info": {
+		"_postman_id": "03c54337-dfd0-4376-b1b5-babc342acb37",
+		"name": "CALIF_MARK_INV",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23359032"
+	},
+	"item": [
+		{
+			"name": "create new address",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.unset(\"ID\");",
+							"pm.environment.unset(\"company\");",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.environment.set(\"ID\", jsonData.id);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    pm.response.to.be.ok;",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 800ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);",
+							"});",
+							"",
+							"pm.test(\"Response Size is less than 2KB\", function () {",
+							"    pm.expect(pm.response.responseSize).to.be.below(2048);",
+							"});",
+							"",
+							"pm.test(\"Current ID is correct\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.id).to.eql(pm.environment.unset(\"ID\"));",
+							"});",
+							"",
+							"pm.test(\"Current Quantity is correct\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.quantity).to.eql(pm.environment.unset(\"company\"));",
+							"",
+							"});",
+							"",
+							"",
+							"pm.test(\"Header ist correct\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json;charset=utf-8\");",
+							"    pm.response.to.have.header(\"Content-Length\", \"47\");",
+							"});",
+							"",
+							"pm.test(\"Body include correct information\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"3dfc837e-5f7e-43f3-b1d0-fa13f8832c4c\")",
+							"    pm.expect(pm.response.text()).to.include(\"Anna\")",
+							"    pm.expect(pm.response.text()).to.include(\"SR\")",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"address\": {\n        \"fullName\": {\n            \"firstName\": \"{{FN}}\",\n            \"lastName\": \"{{LN}}\"\n        },\n        \"company\": \"{{COMPANY}}\",\n        \"taxInfo\": {\n            \"id\": null,\n            \"type\": null\n        },\n        \"addressLine1\": {{ADR}},\n        \"addressLine2\": null,\n        \"street\": {\n            \"name\": null,\n            \"number\": null\n        },\n        \"city\": \"West Springfield\",\n        \"country\": \"USA\",\n        \"subdivision\": \"MA\",\n        \"zipCode\": \"01089\",\n        \"phoneNumber\": null,\n        \"location\": {\n            \"latitude\": 42.1228841,\n            \"longitude\": -72.6263991\n        }\n    },\n    \"setAsDefault\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}",
+					"host": [
+						"{{URL}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Defailt address",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 800ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);",
+							"});",
+							"",
+							"pm.test(\"Response Size is less than 2KB\", function () {",
+							"    pm.expect(pm.response.responseSize).to.be.below(2048);",
+							"});",
+							"",
+							"pm.test(\"Body has id\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"{}\");",
+							"});",
+							"",
+							"pm.test(\"Header ist correct\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json;charset=utf-8\");",
+							"    pm.response.to.have.header(\"Content-Length\", \"2\");",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"{{ID}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/default",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"default"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all address",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 900ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(900);",
+							"});",
+							"",
+							"pm.test(\"Response Size is less than 4KB\", function () {",
+							"    pm.expect(pm.response.responseSize).to.be.below(4096);",
+							"});",
+							"",
+							"pm.test(\"Body include correct information\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"44f531a4-a122-48e4-96b6-a6af8a45acdf\")",
+							"    pm.expect(pm.response.text()).to.include(\"Ann\")",
+							"    pm.expect(pm.response.text()).to.include(\"SR\")",
+							"});",
+							"",
+							"pm.test(\"Header ist correct\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json;charset=utf-8\");",
+							"    ",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}",
+					"host": [
+						"{{URL}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET SPECIFIC ADDRESS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if(responseCode === 200) {",
+							"    tests[\"Backend is available, response code is 200\"] = true;",
+							"} else if (responseCode === 401) {",
+							"    tests[\"Not authorized, Check access token or Log in\"] = false;",
+							"} else if (responseCode === 403) {",
+							"    tests[\"Forbiden\"] = false;",
+							"} else {",
+							"    tests[\"Something went wrong. Check response body\"] = false",
+							"}",
+							"",
+							"pm.test(\"Reponse should be okay to process\", function () {",
+							"    pm.response.to.not.be.error;",
+							"    pm. response.to.be.withBody;",
+							"    pm.response.to.be.json;",
+							"    pm.response.to.not.have.jsonBody(\"error\");",
+							"});",
+							"",
+							"pm.test(\"firstName is correct\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.address.fullName.firstName).to.eql(\"Anna\");",
+							"});",
+							"",
+							"pm.test(\"Entire response is correct\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.address.id).to.eql(\"ID\");",
+							"    pm.expect(jsonData.address.fullName.firstName).to.eql(\"FN\");",
+							"    pm.expect(jsonData.address.fullName.lastName).to.eql(\"LN\");",
+							"    pm.expect(jsonData.address.country).to.eql(\"COUNTRY\");",
+							"    pm.expect(jsonData.address.company).to.eql(\"COMPANY\");",
+							"    pm.expect(jsonData.address.addressLine1).to.eql(\"ADR\");",
+							"",
+							"});",
+							"",
+							"pm.test(\"Entire response is correct\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.address.id).to.eql(\"ID\");",
+							"    pm.expect(jsonData.address.fullName.firstName).to.eql(pm.envirement.get(\"FN\"));",
+							"    pm.expect(jsonData.address.fullName.lastName).to.eql(pm.envirement.get(\"LN\"));",
+							"});",
+							"",
+							"pm.test(\"Header ist correct\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json;charset=utf-8\");",
+							"    pm.response.to.have.header(\"Connection\", \"keep-alive\");",
+							"    pm.response.to.have.header(\"Server\", \"Pepyaka/1.19.10\");",
+							"    pm.response.to.have.header(\"X-Content-Type-Options\", \"nosniff\");",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 900ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(900);",
+							"});",
+							"",
+							"pm.test(\"Response Size is less than 2KB\", function () {",
+							"    pm.expect(pm.response.responseSize).to.be.below(2048);",
+							"});",
+							"",
+							"pm.test(\"Header ist correct\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json;charset=utf-8\");",
+							"    ",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=utf-8\");",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/{{ID}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"{{ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete address 036",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 900ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(900);",
+							"});",
+							"",
+							"pm.test(\"Response Size is less than 2KB\", function () {",
+							"    pm.expect(pm.response.responseSize).to.be.below(2048);",
+							"});",
+							"",
+							"pm.test(\"Body include correct information\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"1b97fb96-86ea-41f7-a6ce-7cc800c82036\")",
+							"    ",
+							"});",
+							"",
+							"pm.test(\"Header ist correct\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json;charset=utf-8\");",
+							"    ",
+							"});",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://addresses.wixapps.net/_api/addresses-web/v1/addresses/?id={{ID}}",
+					"protocol": "https",
+					"host": [
+						"addresses",
+						"wixapps",
+						"net"
+					],
+					"path": [
+						"_api",
+						"addresses-web",
+						"v1",
+						"addresses",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{ID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "_JlAgWEd1Gr5Lk3rxnYvWTWdofUqqok5CYsch94LhKU.eyJpbnN0YW5jZUlkIjoiZjQ2Y2Q1MDItZjcyZi00NGY3LTk2MzgtNWRhMWRlYjBiNGU3IiwiYXBwRGVmSWQiOiIxNTA1Yjc3NS1lODg1LWViMWItYjY2NS0xZTQ4NWQ5YmY5MGUiLCJtZXRhU2l0ZUlkIjoiMjhiNzkzZDYtNTQyNC00MDU4LTgwNDktMDI2YTRkYjAyODJmIiwic2lnbkRhdGUiOiIyMDIyLTEwLTAzVDA0OjExOjMzLjIwOVoiLCJ1aWQiOiJmYjI1YWFmNy1iNTViLTQ1NTMtOWMyZi1kMTkxM2MzY2YzMGUiLCJkZW1vTW9kZSI6ZmFsc2UsImFpZCI6IjIxOGUyZGYyLWU5YzctNDMyMi05YTY1LWFkZmRjZTdmODI4OSIsImJpVG9rZW4iOiJkY2RiNDZkNC1hMzBiLTA0YWYtMTY3MS01ZmNiOTMwMDljYzgiLCJzaXRlT3duZXJJZCI6ImY5MTRmMTFjLWFhYjMtNDUyNy04ZDRlLWJhYjc2MjE0M2E2MCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMi0xMC0wM1QwODoxMTozMy4yMDlaIiwiaGFzVXNlclJvbGUiOmZhbHNlfQ",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "Authorization",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
